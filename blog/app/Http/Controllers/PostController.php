@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use App\Models\Student;
+use App\Models\Post;
 
-class StudentController extends Controller
+class PostController extends Controller
 
 {
   
     function  index (){
-        // $students = Student::all(); 
-        $students = Student::paginate(3);
-        return view("students.index", ["students"=>$students]);
+    
+        $posts = Post::paginate(3);
+        return view("posts.index", ["posts"=>$posts]);
 
 
     }
@@ -24,17 +24,17 @@ class StudentController extends Controller
     function show($id)
     {
 
-        $student = Student::find($id);
-        if($student == null){
+        $post = Post::find($id);
+        if($post == null){
              abort(404);
         }
-        return view("students.show", ["student"=>$student]);
+        return view("posts.show", ["post"=>$post]);
 
 
     }
 
     function create(){
-        return view("students.create");
+        return view("posts.create");
 
         $request->validate([
             'title' => 'required|string|min:3',
@@ -58,46 +58,46 @@ function store()
         $data['image'] = $image_name;
     }
 
-        // Create a new Student object and assign the data
-        $student = new Student();
-        $student->title = $data['title'];
-        $student->email = $data['email'];
-        $student->description = $data['description'];
-        $student->creator = $data['creator'];
-        $student->image = $data['image'] ?? null;  
+        // Create a new post object and assign the data
+        $post = new Post();
+        $post->title = $data['title'];
+        $post->email = $data['email'];
+        $post->description = $data['description'];
+        $post->creator = $data['creator'];
+        $post->image = $data['image'] ?? null;  
         
         // Save the object to the database
-        $student->save();
+        $post->save();
 
-        // Redirect to the students.index route
-        return to_route("students.index");
+        // Redirect to the posts.index route
+        return to_route("posts.index");
 }
 
 
     function destroy($id){
-        $student = Student::find($id);
-        if($student == null){
+        $post = Post::find($id);
+        if($post == null){
             abort(404);
         }
-        $student->delete();
-        return  to_route("students.index");
+        $post->delete();
+        return  to_route("posts.index");
 
     }
 
 
     function edit($id){
 
-        $student=Student::findorfail($id);
+        $post=Post::findorfail($id);
         # use one function to check if object exists --> continue in the function --> otherwise fail
 
-        return view("students.edit", ["student"=>$student]);
+        return view("posts.edit", ["post"=>$post]);
 
     }
 
     public function update(Request $request, $id)
 {
-    // Find the student record
-    $student = Student::findOrFail($id);
+    // Find the post record
+    $post = Post::findOrFail($id);
 
     // Validate the request (optional)
     $request->validate([
@@ -106,15 +106,15 @@ function store()
         'creator' => 'required|string|max:255',
     ]);
 
-    // Update the student record
-    $student->title = $request->input('title');
-    $student->description = $request->input('description');
-    $student->creator = $request->input('creator');
+    // Update the post record
+    $post->title = $request->input('title');
+    $post->description = $request->input('description');
+    $post->creator = $request->input('creator');
     
-    $student->save();
+    $post->save();
 
     // Redirect back to the list or another page
-    return redirect()->route('students.index')->with('success', 'Post updated successfully.');
+    return redirect()->route('posts.index')->with('success', 'post updated successfully.');
 }
 
 }

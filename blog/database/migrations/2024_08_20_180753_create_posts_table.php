@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
            
             $table->string('title');
             $table->string('email')->unique()->nullable();
             $table->string('description')->unique()->nullable();
             $table->string('creator')->nullable();
-            $table->string('image')->nullable()->default("pic1.png");
+            $table->string('image');
             $table->timestamps(); // 2 fields --> created_at , updated_at -->
 
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('posts');
     }
 };

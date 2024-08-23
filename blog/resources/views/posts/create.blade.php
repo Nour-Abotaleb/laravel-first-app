@@ -3,7 +3,7 @@
 @section('main')
     <h1> Add New Post </h1>
 
-    <form method="post" action="{{route('students.store')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('posts.store')}}" enctype="multipart/form-data">
 
         @csrf
 

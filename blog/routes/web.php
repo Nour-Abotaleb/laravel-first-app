@@ -19,28 +19,31 @@ Route::get('/', function () {
 
 
 
-use App\Http\Controllers\StudentController;
-# use index function in Student Controller
-Route::get("/posts",[StudentController::class,"index"] )
-    ->name("students.index");
+use App\Http\Controllers\PostController;
+# use index function in Post Controller
+// Route::get("/posts",[PostController::class,"index"] )
+//     ->name("posts.index");
 
-Route::get("/posts/{id}", [StudentController::class, "show"])
-    ->name("students.show")->where('id', '[0-9]+');
+// Route::get("/posts/{id}", [PostController::class, "show"])
+//     ->name("posts.show")->where('id', '[0-9]+');
 
-Route::get('/posts/create',[StudentController::class, 'create'])
-    ->name('students.create');
+// Route::get('/posts/create',[PostController::class, 'create'])
+//     ->name('posts.create');
 
-Route::post("/posts", [StudentController::class, 'store'])
-    ->name('students.store');
+// Route::post("/posts", [PostController::class, 'store'])
+//     ->name('posts.store');
 
-Route::get('/posts/{id}/delete',
-    [StudentController::class, 'destroy'])->name('students.destroy');
-
-
-Route::get('posts/{id}/edit', [StudentController::class, 'edit'])
-    ->name('students.edit');
+// Route::get('/posts/{id}/delete',
+//     [PostController::class, 'destroy'])->name('posts.destroy');
 
 
-Route::put('posts/{id}', [StudentController::class, 'update'])
-    ->name('students.update');
+// Route::get('posts/{id}/edit', [PostController::class, 'edit'])
+//     ->name('posts.edit');
+
+
+// Route::put('posts/{id}', [PostController::class, 'update'])
+//     ->name('posts.update');
+
+
+Route::resource('posts', PostController::class);
 
